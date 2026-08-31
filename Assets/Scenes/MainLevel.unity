@@ -418,8 +418,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpanner
   obstaclePrefab: {fileID: 1662142213111740498, guid: 3013721822bdc5d4993c76164b1f82ca, type: 3}
-  obstacleSpanner: {fileID: 30003552228034457, guid: 3013721822bdc5d4993c76164b1f82ca, type: 3}
-  obstacleSpawnTime: 1
+  obstacleParent: {fileID: 1465396949}
+  obstacleSpawnTime: 3
 --- !u!4 &502294567
 Transform:
   m_ObjectHideFlags: 0

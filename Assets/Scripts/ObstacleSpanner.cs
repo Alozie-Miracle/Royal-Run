@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class ObstacleSpanner : MonoBehaviour
 {
-    [SerializeField] GameObject obstaclePrefab;
+    [SerializeField] GameObject[] obstaclePrefabs;
     [SerializeField] Transform obstacleParent;
-    [SerializeField] float obstacleSpawnTime = 1f;
+    [SerializeField] float obstacleSpawnTime = 2f;
+    [SerializeField] float spawnWidth = 4f;
     
 
     void Start()
@@ -17,9 +18,13 @@ public class ObstacleSpanner : MonoBehaviour
     {
         while (true)
         {
+            GameObject obstaclePrefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
+            Vector3 spawnPosition = new Vector3(Random.Range(-spawnWidth, spawnWidth), transform.position.y, transform.position.z);
+
             yield return new WaitForSeconds(obstacleSpawnTime);
 
-            Instantiate(obstaclePrefab, transform.position, Quaternion.identity, obstacleParent);
+            Instantiate(obstaclePrefab, spawnPosition, Quaternion.identity, obstacleParent);
         }
+
     }
 }
