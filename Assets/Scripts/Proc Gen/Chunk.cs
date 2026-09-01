@@ -7,6 +7,7 @@ public class Chunk : MonoBehaviour
     [SerializeField] GameObject applePrefab;
     [SerializeField] GameObject coinPrefab;
     [SerializeField] float[] lanes = {-2.5f, 0f, 2.5f};
+    [SerializeField] float fenceSpawnChance = .7f;
     [SerializeField] float appleSpawnChance = .3f;
     [SerializeField] float coinSpawnChance = .5f;
     [SerializeField] float coinSeparationLength = 2f;
@@ -21,6 +22,7 @@ public class Chunk : MonoBehaviour
 
     void SpawnFences()
     {
+        if (Random.value > fenceSpawnChance) return;
         int fencesToSpawn = Random.Range(0, lanes.Length);
 
         for (int i = 0; i < fencesToSpawn; i++)
