@@ -5,9 +5,12 @@ public class Apple : PickUp
     [SerializeField] float adjustmentSpeed = 3f;
     LevelGenerator levelGenerator;
 
-    void Start()
+    // private void Start() {
+    //     levelGenerator = FindAnyObjectByType<LevelGenerator>();
+    // }
+    public void Init(LevelGenerator levelGenerator)
     {
-        levelGenerator = FindAnyObjectByType<LevelGenerator>();
+        this.levelGenerator = levelGenerator;
     }
 
     protected override void onPickUp()

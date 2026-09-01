@@ -5,12 +5,15 @@ public class LevelGenerator : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] CameraController cameraController;
-    [SerializeField] GameObject chunkPrefab;
+    [SerializeField] GameObject[] chunkPrefabs;
     [SerializeField] Transform chunkParent;
+    [SerializeField] ScoreManager scoreManager;
+    [SerializeField] GameObject checkPointChunkPrefab;
 
     [Header("Level Settings")]
     [Tooltip("The amount of chunks to spawn at the start of the game")]
     [SerializeField] int startingChunckAmount = 12;
+    [SerializeField] int checkPointChunkInterval = 8;
     [Tooltip("Do not change chunk length unless chunk prefab reflects the change")]
     [SerializeField] float chunkLength = 10f;
     [SerializeField] float moveSpeed = 8f;
@@ -20,6 +23,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float maxGravityZ = -2f;
 
     List<GameObject> chunks = new List<GameObject>();
+    int chunkSpwaned = 0;
 
     void Start()
     {
@@ -44,8 +48,26 @@ public class LevelGenerator : MonoBehaviour
         float spawnPositionZ = CalculateSpwanPositionZ();
 
         Vector3 chunkSpawnPos = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
-        GameObject newChunk = Instantiate(chunkPrefab, chunkSpawnPos, Quaternion.identity, chunkParent);
-        chunks.Add(newChunk);
+        GameObject chunkToSpawn = ChooseChunkToSpawn();
+        GameObject newChunkGO = Instantiate(chunkToSpawn, chunkSpawnPos, Quaternion.identity, chunkParent);
+        chunks.Add(newChunkGO);
+
+        Chunk newChunk = newChunkGO.GetComponent<Chunk>();
+        newChunk.Init(this, scoreManager);
+
+        chunkSpwaned++;
+    }
+
+    private GameObject ChooseChunkToSpawn()
+    {
+        GameObject chunkToSpawn = chunkPrefabs[Random.Range(0, chunkPrefabs.Length)];
+
+        if (chunkSpwaned % checkPointChunkInterval == 0 && chunkSpwaned != 0)
+        {
+            chunkToSpawn = checkPointChunkPrefab;
+        }
+
+        return chunkToSpawn;
     }
 
     float CalculateSpwanPositionZ()
