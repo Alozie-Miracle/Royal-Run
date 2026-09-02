@@ -19,6 +19,7 @@ public class ObstacleSpanner : MonoBehaviour
         while (true)
         {
             GameObject obstaclePrefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
+            Debug.Log(obstaclePrefab.name);
             Vector3 spawnPosition = new Vector3(Random.Range(-spawnWidth, spawnWidth), transform.position.y, transform.position.z);
 
             yield return new WaitForSeconds(obstacleSpawnTime);
