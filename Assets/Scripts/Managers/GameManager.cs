@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScoreManager scoreManager;
     [SerializeField] TMP_Text timeText;
     [SerializeField] GameObject gameOverText;
+    [SerializeField] GameObject gameOverHighScoreText;
     [SerializeField] TMP_Text gameOverScoreText;
-    [SerializeField] TMP_Text gameOverHighScoreText;
+    [SerializeField] TMP_Text highScoreText;
     [SerializeField] float startTime = 5f;
 
     float timeLeft;
@@ -58,12 +59,13 @@ public class GameManager : MonoBehaviour
                 gameOverScoreText.text = "Final Score: " + scoreManager.Score;
 
             if (gameOverHighScoreText != null)
-                gameOverHighScoreText.text = "High Score: " + scoreManager.HighScore;
+                highScoreText.text = "High Score: " + scoreManager.HighScore;
         }
 
         if (gameOverText != null)
         {
             gameOverText.SetActive(true);
+            gameOverHighScoreText.SetActive(true);
         }
 
         Time.timeScale = 0.1f; // Pause game speed
