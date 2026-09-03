@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject gameOverText;
     [SerializeField] GameObject gameOverHighScoreText;
     [SerializeField] GameObject restartButton;
+    [SerializeField] GameObject exitButton;
     [SerializeField] TMP_Text gameOverScoreText;
     [SerializeField] TMP_Text highScoreText;
     [SerializeField] float startTime = 5f;
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
         if (gameOverText != null) gameOverText.SetActive(false);
         if (gameOverHighScoreText != null) gameOverHighScoreText.SetActive(false);
         if (restartButton != null) restartButton.SetActive(false);
+        if (exitButton != null) exitButton.SetActive(false);
     }
 
     void Update()
@@ -72,7 +74,7 @@ public class GameManager : MonoBehaviour
         if (gameOverText != null) gameOverText.SetActive(true);
         if (gameOverHighScoreText != null) gameOverHighScoreText.SetActive(true);
         if (restartButton != null) restartButton.SetActive(true);
-
+        if (exitButton != null) exitButton.SetActive(true);
         Time.timeScale = 0.1f; // Pause game speed
     }
 
@@ -96,6 +98,11 @@ public class GameManager : MonoBehaviour
         scoreManager.ResetScore(); // Reset the score
         gameOver = false; // Reset game over state
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
 
