@@ -4,8 +4,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] PlayerController playerController;
+    [SerializeField] ScoreManager scoreManager;
     [SerializeField] TMP_Text timeText;
     [SerializeField] GameObject gameOverText;
+    [SerializeField] TMP_Text gameOverScoreText;
+    [SerializeField] TMP_Text gameOverHighScoreText;
     [SerializeField] float startTime = 5f;
 
     float timeLeft;
@@ -24,11 +27,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        bool flowControl = FlowControl();
-        if (!flowControl)
-        {
-            return;
-        }
+        if (!FlowControl()) return;
     }
 
     bool FlowControl()
@@ -51,13 +50,31 @@ public class GameManager : MonoBehaviour
         gameOver = true;
         playerController.enabled = false;
         timeLeft = 0;
-        gameOverText.SetActive(true);
-        Time.timeScale = .1f; // Pause the game
+
+        // Display current score and high score on Game Over screen
+        if (scoreManager != null)
+        {
+            if (gameOverScoreText != null)
+                gameOverScoreText.text = "Final Score: " + scoreManager.Score;
+
+            if (gameOverHighScoreText != null)
+                gameOverHighScoreText.text = "High Score: " + scoreManager.HighScore;
+        }
+
+        if (gameOverText != null)
+        {
+            gameOverText.SetActive(true);
+        }
+
+        Time.timeScale = 0.1f; // Pause game speed
     }
 
     void UpdateTimeText()
     {
-        timeText.text = "Time: " + timeLeft.ToString("F1") + "s";
+        if (timeText != null)
+        {
+            timeText.text = "Time: " + timeLeft.ToString("F1") + "s";
+        }
     }
 
     public void IncreaseTime(float amount)
@@ -65,5 +82,4 @@ public class GameManager : MonoBehaviour
         timeLeft += amount;
     }
 }
-
 

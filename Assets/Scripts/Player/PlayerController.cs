@@ -62,13 +62,12 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed && isGrounded && !isJumping)
         {
-            isJumping = true;
-            jumpTimer = jumpDuration;
-
             if (animator != null)
             {
                 animator.SetTrigger(jumpTrigger);
             }
+            isJumping = true;
+            jumpTimer = jumpDuration;
         }
     }
 
