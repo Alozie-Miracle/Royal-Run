@@ -64,7 +64,12 @@ public class PlayerController : MonoBehaviour
         {
             if (animator != null)
             {
+                // Clear any lingering buffered trigger so it doesn't fire late
+                animator.ResetTrigger(jumpTrigger);
                 animator.SetTrigger(jumpTrigger);
+
+                // Alternative (forces instant playback without transition delay):
+                animator.Play("JumpStateName", 0, 0f);
             }
             isJumping = true;
             jumpTimer = jumpDuration;

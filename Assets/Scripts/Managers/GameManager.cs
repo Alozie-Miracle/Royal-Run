@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text timeText;
     [SerializeField] GameObject gameOverText;
     [SerializeField] GameObject gameOverHighScoreText;
+    [SerializeField] GameObject restartButton;
     [SerializeField] TMP_Text gameOverScoreText;
     [SerializeField] TMP_Text highScoreText;
     [SerializeField] float startTime = 5f;
@@ -23,7 +25,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f; // Ensure game runs at normal speed
         timeLeft = startTime;
+
+        if (gameOverText != null) gameOverText.SetActive(false);
+        if (gameOverHighScoreText != null) gameOverHighScoreText.SetActive(false);
+        if (restartButton != null) restartButton.SetActive(false);
     }
 
     void Update()
@@ -59,14 +66,12 @@ public class GameManager : MonoBehaviour
                 gameOverScoreText.text = "Final Score: " + scoreManager.Score;
 
             if (gameOverHighScoreText != null)
-                highScoreText.text = "High Score: " + scoreManager.HighScore;
+                gameOverHighScoreText.GetComponent<TMP_Text>().text = "High Score: " + scoreManager.HighScore;
         }
 
-        if (gameOverText != null)
-        {
-            gameOverText.SetActive(true);
-            gameOverHighScoreText.SetActive(true);
-        }
+        if (gameOverText != null) gameOverText.SetActive(true);
+        if (gameOverHighScoreText != null) gameOverHighScoreText.SetActive(true);
+        if (restartButton != null) restartButton.SetActive(true);
 
         Time.timeScale = 0.1f; // Pause game speed
     }
@@ -82,6 +87,15 @@ public class GameManager : MonoBehaviour
     public void IncreaseTime(float amount)
     {
         timeLeft += amount;
+    }
+
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; // Reset time scale to normal
+        scoreManager.ResetScore(); // Reset the score
+        gameOver = false; // Reset game over state
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
     }
 }
 

@@ -20,6 +20,16 @@ public class ScoreManager : MonoBehaviour
         UpdateHighScoreText();
     }
 
+    void UpdateScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString();
+    }
+
+    void UpdateHighScoreText()
+    {
+        highScoreText.text = "High Score: " + highScore.ToString();
+    }
+
     public void AddScore(int amount)
     {
         if (gameManager.GameOver) return;
@@ -35,13 +45,10 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private void UpdateScoreText()
+    public void ResetScore()
     {
-        scoreText.text = "Score: " + score.ToString();
-    }
-
-    private void UpdateHighScoreText()
-    {
-        highScoreText.text = "High Score: " + highScore.ToString();
+        score = 0;
+        UpdateScoreText();
+        UpdateHighScoreText();
     }
 }
