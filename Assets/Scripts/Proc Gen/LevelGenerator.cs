@@ -18,7 +18,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] float chunkLength = 10f;
     [SerializeField] float moveSpeed = 8f;
     [SerializeField] float minMoveSpeed = 2f;
-    [SerializeField] float maxMoveSpeed = 20f;
+    [SerializeField] float maxMoveSpeed = 10f;
     [SerializeField] float minGravityZ = -22f;
     [SerializeField] float maxGravityZ = -2f;
 
